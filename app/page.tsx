@@ -1,4 +1,4 @@
-"use client"; // ★重要: これがないとエラーになります
+"use client";
 
 import { useEffect } from "react";
 import AOS from "aos";
@@ -69,19 +69,36 @@ export default function Home() {
             data-aos-delay="100" // 少し遅れて出る
           >
             <SectionTitle title="自己紹介" />
-            <p className="text-gray-500 leading-relaxed mb-6">
-              大阪公立大学工学部情報工学科4年生の谷口香央です。<br />
-              大学では主にWeb開発やUI/UXデザインを学び、個人プロジェクトやインターンシップを通じて実践的なスキルを磨いてきました。<br />
-              趣味は写真撮影で、自然や街の風景を撮るのが好きです。<br />
-              将来は技術とデザインの両方を活かして、ユーザーに喜ばれるサービスを作りたいと考えています。
-            </p>
 
-            <h3 className="text-xl font-bold text-gray-800 mb-4">What I do!</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-               <ServiceCard title="Web Development" desc="モダンな技術を使った高速なサイト構築" icon="💻" color="bg-orange-50" />
-               <ServiceCard title="UI/UX Design" desc="使いやすく美しいデザインの設計" icon="🎨" color="bg-blue-50" />
-               <ServiceCard title="App Development" desc="スマホアプリの開発もお任せください" icon="📱" color="bg-pink-50" />
-               <ServiceCard title="Photography" desc="写真撮影も趣味で行っています" icon="📷" color="bg-green-50" />
+              <div className="space-y-6 text-gray-700 leading-loose">
+                {/* 1段落目：基本情報と研究 */}
+                <p>
+                  大阪公立大学工学部情報工学科4年生の谷口香央です。<br />
+                  スマートプラットフォーム研究室に所属しており、<span className="font-bold text-gray-900">屋内測位システムの開発やデータ解析</span>に関わっています。
+                </p>
+
+                {/* 2段落目：デザインの実績（ここが一番の強み！） */}
+                <p>
+                  また、1年生のときに白鷺祭実行委員の情報部でポスターや大弾幕のデザインに関わり、2年生以降はアカペラサークルのライブにてデザイン部としてフライヤーやバンドパンフレットページのデザインを担当してきました。<br />
+                  大学生活を通して、<span className="font-bold border-b-2 border-orange-400">「頭の中のデザインを形にする能力」</span>を実践的に養っています。
+                </p>
+
+                {/* 3段落目：将来のビジョン（背景色をつけて目立たせる） */}
+                <div className="bg-gray-50 p-5 rounded-lg border-l-4 border-orange-500 mt-8">
+                  <p className="font-medium text-gray-900 m-0">
+                    将来は<span className="text-orange-600 font-bold">技術とデザインの両方を活かして</span>、ユーザーに喜ばれるサービスを作りたいと考えています。
+                  </p>
+                </div>
+              </div>
+
+            <div className="mt-12">
+              <SectionTitle title="使える言語フレームワーク・ツール" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <ServiceCard title="Web Development" desc="モダンな技術を使った高速なサイト構築" icon="💻" color="bg-orange-50" />
+                 <ServiceCard title="UI/UX Design" desc="使いやすく美しいデザインの設計" icon="🎨" color="bg-blue-50" />
+                 <ServiceCard title="App Development" desc="スマホアプリの開発もお任せください" icon="📱" color="bg-pink-50" />
+                 <ServiceCard title="Photography" desc="写真撮影も趣味で行っています" icon="📷" color="bg-green-50" />
+              </div>
             </div>
           </div>
 
@@ -133,9 +150,9 @@ const MenuLink = ({ text, active = false }: { text: string, active?: boolean }) 
 );
 
 const SectionTitle = ({ title }: { title: string }) => (
-    <div className="relative mb-8">
-        <h2 className="text-3xl font-bold text-gray-800 inline-block">{title}</h2>
-        <div className="h-1 w-20 bg-gradient-to-r from-orange-500 to-rose-500 rounded mt-2"></div>
+    <div className="relative mb-8 w-fit">
+        <h2 className="text-3xl font-bold text-gray-800">{title}</h2>
+        <div className="h-1 w-full bg-gradient-to-r from-orange-500 to-rose-500 rounded mt-2"></div>
     </div>
 );
 
