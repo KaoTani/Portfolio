@@ -1,22 +1,32 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import BackgroundPattern from "./components/BackgroundPattern";
-// import Image from "next/image"; // 使っていない場合は削除可
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+// ★ FaGithub を新しく追加しました！
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaGithub } from "react-icons/fa";
 
 export default function Home() {
   
-  // ★AOSの初期化
+  // 画像拡大用の状態管理
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  // AOSの初期化
   useEffect(() => {
     AOS.init({
-      duration: 800, // ふわっとする速度
-      once: true,    // 1回だけ再生
+      duration: 800,
+      once: true,
       easing: "ease-out",
     });
   }, []);
+
+  const skills = [
+    "Python", "C", "C++", "Java", "JavaScript", "TypeScript",
+    "React", "Next.js", "Tailwind CSS", 
+    "Ubuntu", "Docker", "Processing", "SQL", 
+    "VS Code", "Git", "GitHub"
+  ];
 
   return (
     <div className="min-h-screen relative font-sans text-gray-700 flex items-center justify-center py-24 px-4">
@@ -38,13 +48,8 @@ export default function Home() {
                  className="object-cover w-full h-full rounded-3xl"
                />
             </div>
-            {/* ふりがな（少し小さく薄い文字で） */}
               <p className="text-sm text-gray-400 font-medium mb-1 tracking-wider">たにぐち かお</p>
-
-              {/* 名前（漢字で大きく） */}
               <h2 className="text-3xl font-bold text-gray-800 mb-2">谷口 香央</h2>
-
-              {/* 職種タグ（下の余白 mb-8 をつけて、次のリストとの間隔を確保） */}
               <p className="text-gray-500 mb-8 bg-gray-100 inline-block px-4 py-1.5 rounded-lg text-sm">
                   大阪公立大学 <br />
                   工学部情報工学科 4年生
@@ -62,28 +67,25 @@ export default function Home() {
         {/* === 右側: コンテンツエリア === */}
         <div className="col-span-12 lg:col-span-8 space-y-8">
 
-          {/* About Me: 下からふわっと (fade-up) */}
+          {/* 自己紹介 */}
           <div 
             className="bg-white rounded-3xl shadow-[0_0_20px_rgba(0,0,0,0.2)] p-10"
             data-aos="fade-up"
-            data-aos-delay="100" // 少し遅れて出る
+            data-aos-delay="100"
           >
             <SectionTitle title="自己紹介" />
 
               <div className="space-y-6 text-gray-700 leading-loose">
-                {/* 1段落目：基本情報と研究 */}
                 <p>
                   大阪公立大学工学部情報工学科4年生の谷口香央です。<br />
                   スマートプラットフォーム研究室に所属しており、<span className="font-bold text-gray-900">屋内測位システムの開発やデータ解析</span>に関わっています。
                 </p>
 
-                {/* 2段落目：デザインの実績（ここが一番の強み！） */}
                 <p>
                   また、1年生のときに白鷺祭実行委員の情報部でポスターや大弾幕のデザインに関わり、2年生以降はアカペラサークルのライブにてデザイン部としてフライヤーやバンドパンフレットページのデザインを担当してきました。<br />
                   大学生活を通して、<span className="font-bold border-b-2 border-orange-400">「頭の中のデザインを形にする能力」</span>を実践的に養っています。
                 </p>
 
-                {/* 3段落目：将来のビジョン（背景色をつけて目立たせる） */}
                 <div className="bg-gray-50 p-5 rounded-lg border-l-4 border-orange-500 mt-8">
                   <p className="font-medium text-gray-900 m-0">
                     将来は<span className="text-orange-600 font-bold">技術とデザインの両方を活かして</span>、ユーザーに喜ばれるサービスを作りたいと考えています。
@@ -91,47 +93,199 @@ export default function Home() {
                 </div>
               </div>
 
+            {/* スキル一覧 */}
             <div className="mt-12">
               <SectionTitle title="使える言語フレームワーク・ツール" />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                 <ServiceCard title="Web Development" desc="モダンな技術を使った高速なサイト構築" icon="💻" color="bg-orange-50" />
-                 <ServiceCard title="UI/UX Design" desc="使いやすく美しいデザインの設計" icon="🎨" color="bg-blue-50" />
-                 <ServiceCard title="App Development" desc="スマホアプリの開発もお任せください" icon="📱" color="bg-pink-50" />
-                 <ServiceCard title="Photography" desc="写真撮影も趣味で行っています" icon="📷" color="bg-green-50" />
+              
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {skills.map((skill, index) => (
+                  <div 
+                    key={index} 
+                    className="bg-white border border-gray-200 rounded-lg py-2 px-3 text-center text-sm font-bold text-gray-700 shadow-sm hover:shadow hover:border-orange-400 hover:text-orange-500 transition-all duration-300 hover:-translate-y-1"
+                  >
+                    {skill}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Portfolio: 下からふわっと (fade-up) */}
+          {/* デザイン例 */}
           <div 
-            className="bg-white rounded-3xl shadow-lg p-10"
+            className="bg-white rounded-3xl shadow-[0_0_20px_rgba(0,0,0,0.2)] p-10"
             data-aos="fade-up"
-            data-aos-delay="200" // さらに遅れて出る
+            data-aos-delay="300"
           >
-             <SectionTitle title="Portfolio" />
+             <SectionTitle title="サークルで作ったデザイン" />
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-orange-100 h-48 rounded-xl flex items-center justify-center text-orange-400 font-bold hover:scale-105 transition duration-300">Project 1</div>
-                <div className="bg-blue-100 h-48 rounded-xl flex items-center justify-center text-blue-400 font-bold hover:scale-105 transition duration-300">Project 2</div>
+                
+                {/* バンドページ */}
+                <div className="bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-2 group flex flex-col">
+                   <div className="h-56 overflow-hidden shrink-0">
+                     <img 
+                       src="/design1.png" 
+                       alt="バンドページ" 
+                       className="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500 cursor-pointer" 
+                       onClick={() => setSelectedImage("/design1.png")}
+                     />
+                   </div>
+                   <div className="p-6 flex flex-col flex-grow">
+                     <h3 className="text-xl font-bold text-gray-800 mb-2">バンドページ</h3>
+                     <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                       初めて任されたパンフレットのバンドページです。<br />メンバーのやわらかい雰囲気が伝わるデザインを意識しました。
+                     </p>
+                     <div className="flex gap-2 mt-auto">
+                       <span className="bg-orange-100 text-orange-600 text-xs px-2.5 py-1 rounded-md font-bold">FireAlpaca</span>
+                     </div>
+                   </div>
+                </div>
+
+                {/* オープニングメンバーページ */}
+                <div className="bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-2 group flex flex-col">
+                   <div className="h-56 overflow-hidden bg-gray-200 shrink-0">
+                     <img 
+                       src="/design2.png" 
+                       alt="OPメンバーページ" 
+                       className="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500 cursor-pointer" 
+                       onClick={() => setSelectedImage("/design2.png")}
+                     />
+                   </div>
+                   <div className="p-6 flex flex-col flex-grow">
+                     <h3 className="text-xl font-bold text-gray-800 mb-2">OPメンバーページ</h3>
+                     <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                       サークルライブのオープニング曲に出演するメンバーの意気込みをまとめ、ワクワク感を引き出すレイアウトにしました。
+                     </p>
+                     <div className="flex gap-2 mt-auto">
+                       <span className="bg-orange-100 text-orange-600 text-xs px-2.5 py-1 rounded-md font-bold">FireAlpaca</span>
+                     </div>
+                   </div>
+                </div>
+
+                {/* バンドページ（2つ目） */}
+                <div className="bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-2 group flex flex-col">
+                   <div className="h-56 overflow-hidden shrink-0">
+                     <img 
+                       src="/design3.png" 
+                       alt="バンドページ" 
+                       className="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500 cursor-pointer" 
+                       onClick={() => setSelectedImage("/design3.png")}
+                     />
+                   </div>
+                   <div className="p-6 flex flex-col flex-grow">
+                     <h3 className="text-xl font-bold text-gray-800 mb-2">バンドページ</h3>
+                     <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                       2度目に任されたパンフレットのバンドページです。<br />最初のデザインとは変わって、海外らしい力強さが伝わるデザインを意識しました。
+                     </p>
+                     <div className="flex gap-2 mt-auto">
+                       <span className="bg-orange-100 text-orange-600 text-xs px-2.5 py-1 rounded-md font-bold">FireAlpaca</span>
+                     </div>
+                   </div>
+                </div>
+
+                {/* フライヤー */}
+                <div className="bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-2 group flex flex-col">
+                   <div className="h-56 overflow-hidden shrink-0">
+                     <img 
+                       src="/design4.png" 
+                       alt="フライヤー" 
+                       className="w-full h-full object-cover object-top group-hover:scale-105 transition duration-500 cursor-pointer" 
+                       onClick={() => setSelectedImage("/design4.png")}
+                     />
+                   </div>
+                   <div className="p-6 flex flex-col flex-grow">
+                     <h3 className="text-xl font-bold text-gray-800 mb-2">フライヤー</h3>
+                     <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                       初めて任されたパンフレットのバンドページです。<br />メンバーのやわらかい雰囲気が伝わるデザインを意識しました。
+                     </p>
+                     <div className="flex gap-2 mt-auto">
+                       <span className="bg-orange-100 text-orange-600 text-xs px-2.5 py-1 rounded-md font-bold">FireAlpaca</span>
+                     </div>
+                   </div>
+                </div>
+
+             </div>
+          </div>
+
+          {/* プログラミング作品 */}
+          <div 
+            className="bg-white rounded-3xl shadow-[0_0_20px_rgba(0,0,0,0.2)] p-10"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+             <SectionTitle title="1年生のときのゲーム作成" />
+             <div className="grid grid-cols-1 gap-6">
+                
+                {/* Processingゲーム */}
+                <div className="bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group flex flex-col md:flex-row">
+                   <div className="w-full md:w-1/2 bg-black shrink-0 relative aspect-video md:aspect-auto">
+                     <video 
+                       src="/sketch_231209a.mp4" 
+                       controls
+                       muted
+                       loop
+                       className="w-full h-full object-cover" 
+                     />
+                   </div>
+                   <div className="p-6 flex flex-col flex-grow justify-center">
+                     <h3 className="text-xl font-bold text-gray-800 mb-2">ハンバーガー屋ゲーム</h3>
+                     <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                       Processingを用いて作成したオリジナルゲームです。<br />
+                       オブジェクト指向を意識し、物体の動作や当たり判定などを実装しました。
+                     </p>
+                     <div className="flex gap-2 mb-6">
+                       <span className="bg-blue-100 text-blue-600 text-xs px-2.5 py-1 rounded-md font-bold">Processing</span>
+                       <span className="bg-red-100 text-red-600 text-xs px-2.5 py-1 rounded-md font-bold">Java</span>
+                     </div>
+                     <a 
+                       href="https://github.com/KaoTani/Processing-Game.git" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       className="inline-flex items-center gap-2 bg-gray-800 text-white text-sm font-bold px-4 py-2.5 rounded-lg hover:bg-gray-700 transition-colors w-fit"
+                     >
+                       <FaGithub className="text-lg" /> GitHubでコードを見る
+                     </a>
+                   </div>
+                </div>
+
              </div>
           </div>
           
-           <footer className="text-center text-gray-400 text-sm py-4">
+           <footer className="text-center text-gray-400 text-sm py-4 mt-8">
              © 2026 All Rights Reserved by Me.
            </footer>
 
         </div>
       </div>
+
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm transition-opacity"
+          onClick={() => setSelectedImage(null)} // 黒い背景をクリックしたら閉じる
+        >
+          <div className="relative max-w-5xl max-h-[90vh] w-full h-full flex items-center justify-center">
+            {/* ×ボタン */}
+            <button 
+              className="absolute top-0 right-0 md:-top-5 md:-right-10 text-white text-4xl hover:text-gray-300 transition-colors cursor-pointer z-50"
+              onClick={() => setSelectedImage(null)}
+            >
+              &times;
+            </button>
+            {/* 拡大画像 */}
+            <img 
+              src={selectedImage} 
+              alt="Enlarged design" 
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              onClick={(e) => e.stopPropagation()} // 画像自体をクリックしても閉じないようにする
+            />
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
 
-// --- コンポーネント群 ---
-
-const SocialIcon = ({ color, icon }: { color: string, icon: React.ReactNode }) => (
-  <a href="#" className={`w-10 h-10 flex items-center justify-center rounded-lg transition hover:-translate-y-1 ${color}`}>
-    {icon}
-  </a>
-);
+// コンポーネント群
 
 const InfoItem = ({ icon, title, value, color }: { icon: React.ReactNode, title: string, value: string, color: string }) => (
   <div className="flex items-center gap-4 border-b border-gray-100 pb-3 last:border-0 last:pb-0">
@@ -143,25 +297,9 @@ const InfoItem = ({ icon, title, value, color }: { icon: React.ReactNode, title:
   </div>
 );
 
-const MenuLink = ({ text, active = false }: { text: string, active?: boolean }) => (
-  <a href="#" className={`px-4 py-2 rounded-lg transition ${active ? 'bg-gradient-to-r from-orange-500 to-rose-500 text-white shadow-md' : 'hover:bg-gray-100'}`}>
-    {text}
-  </a>
-);
-
 const SectionTitle = ({ title }: { title: string }) => (
     <div className="relative mb-8 w-fit">
         <h2 className="text-3xl font-bold text-gray-800">{title}</h2>
         <div className="h-1 w-full bg-gradient-to-r from-orange-500 to-rose-500 rounded mt-2"></div>
-    </div>
-);
-
-const ServiceCard = ({ title, desc, icon, color }: { title: string, desc: string, icon: string, color: string }) => (
-    <div className={`${color} p-6 rounded-2xl flex gap-4 items-start`}>
-        <div className="text-3xl">{icon}</div>
-        <div>
-            <h4 className="font-bold text-gray-800 text-lg mb-1">{title}</h4>
-            <p className="text-gray-500 text-sm">{desc}</p>
-        </div>
     </div>
 );
