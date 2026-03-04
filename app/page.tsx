@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import BackgroundPattern from "./components/BackgroundPattern";
-// ★ FaGithub を新しく追加しました！
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaGithub } from "react-icons/fa";
 
 export default function Home() {
